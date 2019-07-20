@@ -1,0 +1,88 @@
+<html>
+<head>
+<title>Circular Path</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+<script type="text/javascript" src="https://static.codehs.com/gulp/fe48fc329760d0832fd2adb803ad85322d9e680a/chs-js-lib/chs.js"></script>
+
+
+<style>
+canvas {
+    border: 1px solid black;
+    display: inline-block;
+    vertical-align: top;
+}
+</style>
+
+</head>
+
+<body>
+<h1>Webpages Are Awesome</h1>
+<h2 style="color:blue;" align="middle">This uses CSS to change the text color and to center the text on the screen!</h2>
+
+
+
+<canvas
+width="400"
+height="500"
+class="codehs-editor-canvas" align="middle"></canvas>
+
+<script>
+window.onload = function() {
+
+var text = new Text("Javascript", "15pt Arial");
+text.setPosition(getWidth() / 2 - text.getWidth() / 2, text.getHeight());
+add(text);
+var radius1 = getWidth() / 2 - 20;
+var radius2 = radius1 - 70;
+var movingRadius = 15;
+var startX = getWidth() / 2 - movingRadius;
+var startY1 = getHeight() - ((getHeight() - getWidth()) / 2);
+var startY2 = startY1 - 50;
+var theta = 0;
+var circle1;
+var circle2;
+var colorList1 = [Color.red, Color.green, Color.blue, Color.orange];
+var colorList2 = [Color.orange, Color.blue, Color.green, Color.red];
+
+function start(){
+    circle1 = new Circle(movingRadius);
+    circle1.setPosition(startX, startY1);
+    circle2 = new Circle(movingRadius);
+    circle2.setPosition(startX, startY2);
+    add(circle1);
+    add(circle2);
+    setTimer(moveCircular, 50);
+}
+
+function moveCircular(){
+    var dx1 = Math.cos(theta) * radius1;
+    var dy1 = Math.sin(theta) * radius1;
+    var dx2 = Math.cos(theta) * radius2;
+    var dy2 = Math.sin(theta) * radius2;
+    circle1.move(dx1 / 5, -dy1 / 5);
+    circle2.move(-dx2 / 5, -dy2 / 5);
+    theta += 0.2;
+    changeColor();
+}
+
+function changeColor(){
+    var tempTheta = Math.floor(theta);
+    if(tempTheta >= colorList1.length){
+        tempTheta = tempTheta % colorList1.length;
+    }
+    circle1.setColor(colorList1[tempTheta]);
+    circle2.setColor(colorList2[tempTheta]);
+    
+}
+
+
+    if (typeof start === 'function') {
+        start();
+    }
+};
+</script>
+
+</body>
+</html>
